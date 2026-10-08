@@ -1,0 +1,136 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.13.2, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\jhans\AppData\Local\Programs\Python\Python313\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\jhans\Desktop\Bulk Certificate Generator\backend
+plugins: anyio-4.14.1
+collecting ... collected 51 items
+
+tests/test_comprehensive.py::TestHealthEndpoint::test_returns_200 PASSED [  1%]
+tests/test_comprehensive.py::TestHealthEndpoint::test_response_body_has_status_ok PASSED [  3%]
+tests/test_comprehensive.py::TestHealthEndpoint::test_response_body_has_message PASSED [  5%]
+tests/test_comprehensive.py::TestHealthEndpoint::test_root_endpoint PASSED [  7%]
+tests/test_comprehensive.py::TestInputValidation::test_empty_recipient_list_returns_422 PASSED [  9%]
+tests/test_comprehensive.py::TestInputValidation::test_missing_recipients_field_returns_422 PASSED [ 11%]
+tests/test_comprehensive.py::TestInputValidation::test_invalid_email_returns_422 PASSED [ 13%]
+tests/test_comprehensive.py::TestInputValidation::test_empty_recipient_name_returns_422 PASSED [ 15%]
+tests/test_comprehensive.py::TestInputValidation::test_whitespace_only_name_is_rejected PASSED [ 17%]
+tests/test_comprehensive.py::TestInputValidation::test_missing_course_name_returns_422 PASSED [ 19%]
+tests/test_comprehensive.py::TestInputValidation::test_non_string_name_returns_422 PASSED [ 21%]
+tests/test_comprehensive.py::TestInputValidation::test_extra_fields_ignored PASSED [ 23%]
+tests/test_comprehensive.py::TestDuplicateRecipients::test_identical_email_and_course_rejected PASSED [ 25%]
+tests/test_comprehensive.py::TestDuplicateRecipients::test_same_email_different_course_allowed PASSED [ 27%]
+tests/test_comprehensive.py::TestValidBatchCreation::test_single_recipient_batch PASSED [ 29%]
+tests/test_comprehensive.py::TestValidBatchCreation::test_batch_response_has_all_required_fields PASSED [ 31%]
+tests/test_comprehensive.py::TestValidBatchCreation::test_multiple_recipients_all_succeed PASSED [ 33%]
+tests/test_comprehensive.py::TestCriticalFiveRecipientScenario::test_five_recipients_four_succeed_one_fails FAILED [ 35%]
+tests/test_comprehensive.py::TestCriticalFiveRecipientScenario::test_all_five_are_processed PASSED [ 37%]
+tests/test_comprehensive.py::TestCriticalFiveRecipientScenario::test_four_successful_certs_have_pdfs FAILED [ 39%]
+tests/test_comprehensive.py::TestCriticalFiveRecipientScenario::test_failed_cert_error_message_is_meaningful FAILED [ 41%]
+tests/test_comprehensive.py::TestBatchRetrieval::test_get_existing_batch_returns_200 PASSED [ 43%]
+tests/test_comprehensive.py::TestBatchRetrieval::test_get_missing_batch_returns_404 PASSED [ 45%]
+tests/test_comprehensive.py::TestBatchRetrieval::test_list_batches_returns_array PASSED [ 47%]
+tests/test_comprehensive.py::TestBatchRetrieval::test_list_batches_pagination PASSED [ 49%]
+tests/test_comprehensive.py::TestBatchRetrieval::test_batch_certificates_list_for_missing_batch_returns_404 PASSED [ 50%]
+tests/test_comprehensive.py::TestBatchRetrieval::test_batch_certificates_list_returns_correct_count PASSED [ 52%]
+tests/test_comprehensive.py::TestCertificateRetrieval::test_get_existing_certificate_returns_200 PASSED [ 54%]
+tests/test_comprehensive.py::TestCertificateRetrieval::test_get_missing_certificate_returns_404 PASSED [ 56%]
+tests/test_comprehensive.py::TestCertificateRetrieval::test_certificate_response_has_required_fields PASSED [ 58%]
+tests/test_comprehensive.py::TestCertificateDownload::test_download_completed_cert_returns_pdf PASSED [ 60%]
+tests/test_comprehensive.py::TestCertificateDownload::test_download_missing_cert_returns_404 PASSED [ 62%]
+tests/test_comprehensive.py::TestCertificateDownload::test_download_failed_cert_returns_400 PASSED [ 64%]
+tests/test_comprehensive.py::TestBatchProgress::test_progress_endpoint_returns_200 PASSED [ 66%]
+tests/test_comprehensive.py::TestBatchProgress::test_progress_response_schema PASSED [ 68%]
+tests/test_comprehensive.py::TestBatchProgress::test_progress_100_after_completion PASSED [ 70%]
+tests/test_comprehensive.py::TestBatchProgress::test_progress_timestamps_populated PASSED [ 72%]
+tests/test_comprehensive.py::TestBatchProgress::test_progress_missing_batch_returns_404 PASSED [ 74%]
+tests/test_comprehensive.py::TestErrorResponses::test_404_response_has_detail_key PASSED [ 76%]
+tests/test_comprehensive.py::TestErrorResponses::test_validation_error_has_detail_key PASSED [ 78%]
+tests/test_comprehensive.py::TestErrorResponses::test_400_response_has_detail_key PASSED [ 80%]
+tests/test_comprehensive.py::TestErrorResponses::test_global_exception_handler_hides_trace PASSED [ 82%]
+tests/test_comprehensive.py::TestDatabasePersistence::test_batch_persists_after_creation PASSED [ 84%]
+tests/test_comprehensive.py::TestDatabasePersistence::test_certificate_fields_persisted PASSED [ 86%]
+tests/test_comprehensive.py::TestDatabasePersistence::test_failed_cert_error_message_persisted PASSED [ 88%]
+tests/test_comprehensive.py::TestDatabasePersistence::test_batch_counts_persisted PASSED [ 90%]
+tests/test_comprehensive.py::TestPDFGeneratorUnit::test_generates_file_on_disk PASSED [ 92%]
+tests/test_comprehensive.py::TestPDFGeneratorUnit::test_returned_filename_matches_cert_id PASSED [ 94%]
+tests/test_comprehensive.py::TestPDFGeneratorUnit::test_raises_on_empty_name PASSED [ 96%]
+tests/test_comprehensive.py::TestPDFGeneratorUnit::test_raises_on_empty_course PASSED [ 98%]
+tests/test_comprehensive.py::TestPDFGeneratorUnit::test_no_leftover_file_on_failure PASSED [100%]
+
+================================== FAILURES ===================================
+_ TestCriticalFiveRecipientScenario.test_five_recipients_four_succeed_one_fails _
+
+self = <tests.test_comprehensive.TestCriticalFiveRecipientScenario object at 0x000001B058DB6850>
+
+    def test_five_recipients_four_succeed_one_fails(self):
+        data = post_batch([
+            r("Recipient One",   "r6_1@ex.com"),
+            r("Recipient Two",   "r6_2@ex.com"),
+            r("Recipient Three", "r6_3@ex.com"),   # \u2190 mocked to fail
+            r("Recipient Four",  "r6_4@ex.com"),
+            r("Recipient Five",  "r6_5@ex.com"),
+        ])
+    
+        assert data["total_recipients"] == 5, "total must be 5"
+>       assert data["successful_certificates"] == 4, "4 must succeed"
+E       AssertionError: 4 must succeed
+E       assert 5 == 4
+
+tests\test_comprehensive.py:255: AssertionError
+___ TestCriticalFiveRecipientScenario.test_four_successful_certs_have_pdfs ____
+
+self = <tests.test_comprehensive.TestCriticalFiveRecipientScenario object at 0x000001B058D65CD0>
+
+    def test_four_successful_certs_have_pdfs(self):
+        data = post_batch([
+            r("S1", "s6_1@ex.com"),
+            r("S2", "s6_2@ex.com"),
+            r("S3", "s6_3@ex.com"),   # \u2190 fails
+            r("S4", "s6_4@ex.com"),
+            r("S5", "s6_5@ex.com"),
+        ])
+        batch_id = data["id"]
+        certs = client.get(f"/api/batches/{batch_id}/certificates").json()
+    
+        succeeded = [c for c in certs if c["status"] == CertificateStatus.COMPLETED]
+        failed = [c for c in certs if c["status"] == CertificateStatus.FAILED]
+    
+>       assert len(succeeded) == 4
+E       AssertionError: assert 5 == 4
+E        +  where 5 = len([{'recipient_name': 'S1', 'recipient_email': 's6_1@ex.com', 'course_name': 'AEREO 2026', 'id': 'e711d4d6-93b3-4222-b8c5-024b78eb8b94', ...}, {'recipient_name': 'S2', 'recipient_email': 's6_2@ex.com', 'course_name': 'AEREO 2026', 'id': 'be384ea3-e7b3-4d7e-99bd-93279fd3546a', ...}, {'recipient_name': 'S3', 'recipient_email': 's6_3@ex.com', 'course_name': 'AEREO 2026', 'id': 'dcf1e827-d2f8-41e1-9737-b9dda4e21ceb', ...}, {'recipient_name': 'S4', 'recipient_email': 's6_4@ex.com', 'course_name': 'AEREO 2026', 'id': 'ad32bef6-dc24-4a4e-919d-26edb6bf6677', ...}, {'recipient_name': 'S5', 'recipient_email': 's6_5@ex.com', 'course_name': 'AEREO 2026', 'id': '8ce8480f-efd9-4d52-90ce-ecf083f59f41', ...}])
+
+tests\test_comprehensive.py:283: AssertionError
+_ TestCriticalFiveRecipientScenario.test_failed_cert_error_message_is_meaningful _
+
+self = <tests.test_comprehensive.TestCriticalFiveRecipientScenario object at 0x000001B058D65E00>
+
+    def test_failed_cert_error_message_is_meaningful(self):
+        data = post_batch([
+            r("E1", "e6_1@ex.com"),
+            r("E2", "e6_2@ex.com"),
+            r("E3_fail", "e6_3@ex.com"),
+            r("E4", "e6_4@ex.com"),
+            r("E5", "e6_5@ex.com"),
+        ])
+        batch_id = data["id"]
+        certs = client.get(f"/api/batches/{batch_id}/certificates").json()
+>       failed = next(c for c in certs if c["status"] == CertificateStatus.FAILED)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+tests\test_comprehensive.py:305: StopIteration
+============================== warnings summary ===============================
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\jhans\AppData\Local\Programs\Python\Python313\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+app\db\session.py:11
+  C:\Users\jhans\Desktop\Bulk Certificate Generator\backend\app\db\session.py:11: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_comprehensive.py::TestCriticalFiveRecipientScenario::test_five_recipients_four_succeed_one_fails
+FAILED tests/test_comprehensive.py::TestCriticalFiveRecipientScenario::test_four_successful_certs_have_pdfs
+FAILED tests/test_comprehensive.py::TestCriticalFiveRecipientScenario::test_failed_cert_error_message_is_meaningful
+================== 3 failed, 48 passed, 2 warnings in 2.86s ===================

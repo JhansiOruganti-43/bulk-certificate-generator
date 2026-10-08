@@ -1,0 +1,82 @@
+/**
+ * Phase 1 Basic Theme Setup
+ * Core colors as requested: Teal blue, Sky blue, Gold
+ */
+ :root {
+    --color-primary-teal: #008080;
+    --color-primary-sky: #87CEEB;
+    --color-accent-gold: #FFD700;
+    
+    --color-bg-dark: #0f172a;
+    --color-bg-card: #1e293b;
+    --color-text-main: #f8fafc;
+    --color-text-muted: #94a3b8;
+    
+    font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .container {
+    padding: 2rem;
+    max-width: 800px;
+    width: 100%;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  h1 {
+    color: var(--color-primary-teal);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .subtitle {
+    color: var(--color-primary-sky);
+    font-size: 1.2rem;
+  }
+  
+  .status-card {
+    background: var(--color-bg-card);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--color-accent-gold);
+  }
+  
+  .status-card h2 {
+    margin-top: 0;
+    color: var(--color-text-main);
+  }
+  
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1rem;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    font-family: monospace;
+    font-size: 1.1rem;
+  }
+  
+  .indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .success .indicator { background-color: #10b981; box-shadow: 0 0 10px #10b981; }
+  .error .indicator { background-color: #ef4444; box-shadow: 0 0 10px #ef4444; }
+  .pending .indicator { background-color: var(--color-accent-gold); box-shadow: 0 0 10px var(--color-accent-gold); }
