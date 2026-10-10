@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from app.models.batch import Batch
 from app.models.certificate import Certificate
 from app.models.enums import BatchStatus, CertificateStatus
-from app.services.pdf_generator import generate_pdf, PDFGenerationError
+from app.services import pdf_generator
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +46,7 @@ def generate_certificates_for_batch(db: Session, batch_id: str):
             if "FAIL_ME_TEST" in cert.recipient_name:
                 raise ValueError("Simulated isolated error")
 
-            filename = generate_pdf(
+            filename = pdf_generator.generate_pdf(
                 recipient_name=cert.recipient_name,
                 course_name=cert.course_name,
                 certificate_id=unique_cid,

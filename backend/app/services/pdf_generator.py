@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 from datetime import datetime
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.pdfgen import canvas
@@ -11,7 +12,7 @@ os.makedirs(CERTIFICATE_STORAGE_DIR, exist_ok=True)
 class PDFGenerationError(Exception):
     pass
 
-def generate_pdf(recipient_name: str, course_name: str, certificate_id: str, issue_date: str) -> str:
+def generate_pdf(recipient_name: str, course_name: str, certificate_id: str, issue_date: str, course_start: Optional[str] = None, course_end: Optional[str] = None, completion_date: Optional[str] = None) -> str:
     """
     Generates a PDF certificate safely into the internal storage directory.
     
@@ -63,10 +64,20 @@ def generate_pdf(recipient_name: str, course_name: str, certificate_id: str, iss
         c.setFont("Helvetica-Oblique", 24)
         c.drawCentredString(width / 2.0, height - 330, course_name)
 
-        # Details
+        # Details with optional dates
         c.setFont("Helvetica", 12)
         c.setFillColor(HexColor("#0f172a"))
-        c.drawString(60, 60, f"Issued Date: {issue_date}")
+        y = 60
+        c.drawString(60, y, f"Issued Date: {issue_date}")
+        if course_start:
+            y += 15
+            c.drawString(60, y, f"Course Start: {course_start}")
+        if course_end:
+            y += 15
+            c.drawString(60, y, f"Course End: {course_end}")
+        if completion_date:
+            y += 15
+            c.drawString(60, y, f"Completion Date: {completion_date}")
         c.drawRightString(width - 60, 60, f"Certificate ID: {certificate_id}")
 
         c.showPage()

@@ -12,7 +12,16 @@ class Certificate(Base):
     __tablename__ = "certificates"
 
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()), index=True)
-    batch_id = Column(String, ForeignKey("batches.id"), nullable=False, index=True)
+    batch_id = Column(String, ForeignKey("batches.id"), nullable=True, index=True)
+    
+    student_id = Column(String, ForeignKey("students.id"), nullable=True, index=True)
+    course_id = Column(String, ForeignKey("courses.id"), nullable=True, index=True)
+    enrollment_id = Column(String, ForeignKey("enrollments.id"), nullable=True, index=True)
+    
+    course_start_date = Column(DateTime(timezone=True), nullable=True)
+    course_end_date = Column(DateTime(timezone=True), nullable=True)
+    completion_date = Column(DateTime(timezone=True), nullable=True)
+    issue_date = Column(DateTime(timezone=True), default=get_utc_now)
     
     recipient_name = Column(String, nullable=False)
     recipient_email = Column(String, nullable=False, index=True)
@@ -30,7 +39,11 @@ class Certificate(Base):
     updated_at = Column(DateTime(timezone=True), default=get_utc_now, onupdate=get_utc_now)
 
     batch = relationship("Batch", back_populates="certificates")
+    student = relationship("Student", back_populates="certificates")
+    course = relationship("Course", back_populates="certificates")
+    enrollment = relationship("Enrollment", back_populates="certificates")
 
     __table_args__ = (
         Index('ix_cert_batch_status', 'batch_id', 'status'),
+        Index('ix_cert_student_course', 'student_id', 'course_id'),
     )

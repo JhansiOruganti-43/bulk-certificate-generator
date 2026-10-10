@@ -9,3 +9,6 @@ httpx
 alembic
 email-validator
 reportlab
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart

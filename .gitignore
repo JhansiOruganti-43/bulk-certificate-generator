@@ -45,9 +45,35 @@ dist-ssr/
 *.sqlite3
 certificates.db
 
+# Ignore generated certificate PDFs
+backend/data/certificates/*.pdf
+
 # IDEs
 .idea/
 .vscode/
 *.swp
 *.swo
 .DS_Store
+# Local database backups
+backend/certificates_backup.db
+
+# Temporary test PDFs
+backend/test_cert.pdf
+backend/test_download.pdf
+
+# Test output and debugging logs
+backend/test_output*.txt
+backend/tests_output.txt
+backend/test_run_latest.txt
+backend/test_api_out*.txt
+backend/test_out*.txt
+frontend/build_out.txt
+
+# Temporary debugging scripts
+backend/inspect_db.py
+backend/inspect_db2.py
+backend/tmp_test_generate_pdf.py
+
+# Pytest cache
+.pytest_cache/
+backend/.pytest_cache/

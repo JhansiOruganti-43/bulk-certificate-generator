@@ -9,11 +9,11 @@ class CertificateBase(BaseModel):
     course_name: str = Field(..., min_length=1, description="Name of the course, event, or program")
 
 class CertificateCreate(CertificateBase):
-    batch_id: str
+    enrollment_id: str
 
 class CertificateResponse(CertificateBase):
     id: str
-    batch_id: str
+    enrollment_id: str
     certificate_id: Optional[str] = None
     status: CertificateStatus
     pdf_path: Optional[str] = None
