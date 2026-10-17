@@ -3,6 +3,30 @@
 ## Project Overview
 The AEREO Bulk Certificate Generator is a full-stack application designed to automate the process of generating large volumes of customized PDF certificates. It features a scalable FastAPI backend that handles asynchronous PDF generation and a dynamic, responsive React frontend.
 
+## Application Screenshots
+
+The following screenshots showcase the AEREO Bulk Certificate Generator web application running locally.
+
+### 1. Dashboard
+Displays total batches, total certificates, success rate, failed certificates, and recent batch activity.
+
+![CertiGen Dashboard](screenshots/dashboard.png)
+
+### 2. Create Batch
+Provides an interface for creating a new batch and entering recipient details for certificate generation.
+
+![Create Batch](screenshots/createBatch.png)
+
+### 3. Batch History
+Displays previously created batches and their processing status and progress.
+
+![Batch History](screenshots/batchhistory.png)
+
+### 4. Recipient Details
+Shows recipient information and certificate generation details.
+
+![Recipient Details](screenshots/recipientDetails.png)
+
 ## Problem Statement
 Manually creating certificates for large batches of students or attendees is time-consuming and error-prone. Organizations need a system that can take a list of recipients, securely process them in bulk, isolate individual failures without crashing the entire batch, and provide a user-friendly interface to monitor progress and download results.
 
